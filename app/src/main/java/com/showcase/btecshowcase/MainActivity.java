@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap= BitmapFactory.decodeFile(ImagePath);
         Frame tempframe=convert1.convert(bitmap);
         Mat matrix=converterToMat.convert(tempframe);
-        Log.d(TAG, String.valueOf(matrix.size().width()));
+        System.out.print(matrix.depth());
 
         Gson gson = new Gson();
         org.bytedeco.opencv.opencv_core.Mat img = org.bytedeco.opencv.global.opencv_imgcodecs.imread("/home/danhyal/download.jpeg");
