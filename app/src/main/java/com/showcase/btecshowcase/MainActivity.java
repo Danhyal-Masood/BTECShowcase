@@ -4,7 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +17,9 @@ import com.google.gson.Gson;
 import net.dongliu.requests.Requests;
 
 import org.apache.commons.codec.binary.Base64;
+import org.bytedeco.javacv.AndroidFrameConverter;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Point;
@@ -35,6 +41,12 @@ import one.util.streamex.StreamEx;
 
 public class MainActivity extends AppCompatActivity {
     Intent intent;
+    String ImagePath;
+    String TAG="::DEBUG::";
+    OpenCVFrameConverter.ToMat converterToMat = new OpenCVFrameConverter.ToMat();
+    AndroidFrameConverter convert1=new AndroidFrameConverter();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(resultCode==RESULT_OK){
 
-                    String PathHolder = data.getData().getPath();
-                    System.out.println(PathHolder);
+                    ImagePath = data.getData().getPath();
 
-                    Toast.makeText(MainActivity.this, PathHolder , Toast.LENGTH_LONG).show();
 
                 }
                 break;
@@ -74,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static Mat jsonresult() throws ParseException {
-                Gson gson = new Gson();
+    public  Mat jsonresult() throws ParseException {
+        Bitmap bitmap= BitmapFactory.decodeFile(ImagePath);
+        Frame tempframe=convert1.convert(bitmap);
+        Mat matrix=converterToMat.convert(tempframe);
+        Log.d(TAG, String.valueOf(matrix.size().width()));
+
+        Gson gson = new Gson();
         org.bytedeco.opencv.opencv_core.Mat img = org.bytedeco.opencv.global.opencv_imgcodecs.imread("/home/danhyal/download.jpeg");
 //        org.bytedeco.opencv.global.opencv_imgproc.resize(img,img,new Size(1200,1200));
 
