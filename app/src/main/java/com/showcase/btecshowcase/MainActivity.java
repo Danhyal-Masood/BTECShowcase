@@ -15,6 +15,7 @@ import org.bytedeco.opencv.opencv_core.Scalar;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 import java.lang.reflect.Type;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public static Mat jsonresult(){
+    public static Mat jsonresult() throws ParseException {
                 Gson gson = new Gson();
         org.bytedeco.opencv.opencv_core.Mat img = org.bytedeco.opencv.global.opencv_imgcodecs.imread("/home/danhyal/download.jpeg");
 //        org.bytedeco.opencv.global.opencv_imgproc.resize(img,img,new Size(1200,1200));
