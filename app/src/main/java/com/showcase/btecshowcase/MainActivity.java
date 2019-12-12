@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         List<Double> detection_scores=new ArrayList<>();
         double[] detection_scoress =gson.fromJson(predictions.get("detection_scores").toString(),(Type)double[].class);
         for (double x:detection_scoress){
-            if (x!=0.0){
+            if (x!=0.0f){
                 detection_scores.add(x);
             }
         }
