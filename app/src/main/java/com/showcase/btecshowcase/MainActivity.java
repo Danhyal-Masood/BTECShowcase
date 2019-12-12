@@ -41,7 +41,6 @@ import one.util.streamex.StreamEx;
 
 public class MainActivity extends AppCompatActivity {
     Intent intent;
-    String ImagePath;
     String TAG="::DEBUG::";
     OpenCVFrameConverter.ToMat converterToMat = new OpenCVFrameConverter.ToMat();
     AndroidFrameConverter convert1=new AndroidFrameConverter();
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(resultCode==RESULT_OK){
 
-                    ImagePath = data.getData().getPath();
-
+                    String ImagePath = data.getData().getPath();
+                    jsonresult(ImagePath);
 
                 }
                 break;
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public  void jsonresult()  {
+    public  void jsonresult(String ImagePath)  {
         Bitmap bitmap= BitmapFactory.decodeFile(ImagePath);
         Frame tempframe=convert1.convert(bitmap);
         Mat matrix=converterToMat.convert(tempframe);
