@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Intent intent;
     String TAG="::DEBUG::";
     OpenCVFrameConverter.ToMat converterToMat = new OpenCVFrameConverter.ToMat();
+
     AndroidFrameConverter convert1=new AndroidFrameConverter();
 
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button=findViewById(R.id.load_button);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
