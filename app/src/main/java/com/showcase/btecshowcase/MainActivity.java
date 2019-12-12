@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Double[][] detection_boxess=gson.fromJson(predictions.get("detection_boxes").toString(), (Type) Double[][].class);
         List<List<Double>> detection_boxes= StreamEx.of(detection_boxess).map(a -> DoubleStreamEx.of(a).boxed().toList()).toList();
-        // interate over the number of detections to draw rectangles and text for each detection on matrix.
+        // iterate over the number of detections to draw rectangles and text for each detection on matrix.
         for (int j=0;j<num_detections;j+=1){
             double confidance=detection_scores.get(j);
             if (confidance>0.7){
