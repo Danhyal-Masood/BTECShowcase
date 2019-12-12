@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    
+
 
     public static Mat jsonresult() throws ParseException {
                 Gson gson = new Gson();
