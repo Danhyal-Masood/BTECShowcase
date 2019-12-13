@@ -185,9 +185,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         final long endTime = System.currentTimeMillis();
+        Bitmap bmp2=convert1.convert(converterToMat.convert(img));
         System.out.print((endTime-startTime)/1000);
         // temp
-        return bitmap;
+        return bmp2;
         }catch (ParseException e){}
        catch (IOException e){}
         return bitmap;
