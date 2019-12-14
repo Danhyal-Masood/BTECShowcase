@@ -162,12 +162,12 @@ public class MainActivity extends AppCompatActivity {
                         Uri ImageUri = data.getData();
                         Bitmap bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(), ImageUri);
                         NetworkTask nt=new NetworkTask();
-                        OpenImageLabels=getcsvdata("class-descriptions-boxable.csv");
+//                        OpenImageLabels=getcsvdata("class-descriptions-boxable.csv");
                         cocolabels=gettxtdata("coco.txt");
-                        System.out.println(cocolabels);
                         Bitmap bmp=nt.execute(bitmap).get();
+                        bitmap.recycle();
                         v1.setImageBitmap(bmp);
-                        Log.d(TAG,String.valueOf(bmp.getHeight()));
+
 
                     }catch (NullPointerException e){e.printStackTrace();}
                     catch (Exception e){e.printStackTrace();}
@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         try {
              String response=client.newCall(request).execute().body().string();
 
+
         // parse response into json
         Object obj=jsonParser.parse(response);
         JSONObject jobj=(JSONObject) obj;
@@ -251,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 int bottom=(int)(detection_boxes.get(j).get(2)*img.rows());
                 int right=(int)(detection_boxes.get(j).get(3)*img.cols());
                 org.bytedeco.opencv.global.opencv_imgproc.rectangle(img,new Point(left,top),new Point(right,bottom), Scalar.GREEN);
-                org.bytedeco.opencv.global.opencv_imgproc.putText(img, cocolabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,1,Scalar.RED);
+                org.bytedeco.opencv.global.opencv_imgproc.putText(img, cocolabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,3,Scalar.RED);
 //                org.bytedeco.opencv.global.opencv_imgproc.putText(img, OpenImageLabels.get((int)detection_classes[j]),new Point(left,top),1,1,Scalar.RED);
 
 
@@ -260,7 +261,9 @@ public class MainActivity extends AppCompatActivity {
         final long endTime = System.currentTimeMillis();
         Bitmap bmp2=convert1.convert(converterToMat.convert(img));
         System.out.print((endTime-startTime)/1000);
+        bitmap.recycle();
         // temp
+
         return bmp2;
         }catch (ParseException e){}
        catch (IOException e){}
