@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         Uri ImageUri = data.getData();
                         Bitmap bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(), ImageUri);
                         NetworkTask nt=new NetworkTask();
-//                        OpenImageLabels=getcsvdata("class-descriptions-boxable.csv");
+                        OpenImageLabels=getcsvdata("class-descriptions-boxable.csv");
                         cocolabels=gettxtdata("coco.txt");
                         Bitmap bmp=nt.execute(bitmap).get();
                         bitmap.recycle();
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         b64.put("b64",encoded);
         throwawayarray.add(b64);
         json.put("instances",throwawayarray);
-        String server_url = "http://92.233.63.88:8501/v1/models/coconet:predict";
+        String server_url = "http://92.233.63.88:8501/v1/models/resnet_openimages:predict";
 
         final long startTime = System.currentTimeMillis();
         OkHttpClient client = new OkHttpClient();
@@ -252,17 +252,18 @@ public class MainActivity extends AppCompatActivity {
                 int bottom=(int)(detection_boxes.get(j).get(2)*img.rows());
                 int right=(int)(detection_boxes.get(j).get(3)*img.cols());
                 org.bytedeco.opencv.global.opencv_imgproc.rectangle(img,new Point(left,top),new Point(right,bottom), Scalar.GREEN);
-                org.bytedeco.opencv.global.opencv_imgproc.putText(img, cocolabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,3,Scalar.RED);
-//                org.bytedeco.opencv.global.opencv_imgproc.putText(img, OpenImageLabels.get((int)detection_classes[j]),new Point(left,top),1,1,Scalar.RED);
+//                org.bytedeco.opencv.global.opencv_imgproc.putText(img, cocolabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,4,Scalar.RED);
+                org.bytedeco.opencv.global.opencv_imgproc.putText(img, OpenImageLabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,4,Scalar.RED);
 
 
             }
         }
         final long endTime = System.currentTimeMillis();
+        //convert matrix back to bitmap
         Bitmap bmp2=convert1.convert(converterToMat.convert(img));
         System.out.print((endTime-startTime)/1000);
+        // recycle bitmap to regain some wam
         bitmap.recycle();
-        // temp
 
         return bmp2;
         }catch (ParseException e){}
