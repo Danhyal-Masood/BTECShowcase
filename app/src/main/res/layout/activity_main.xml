@@ -15,6 +15,7 @@
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/questrial"
         android:text="Load Image"
+        android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +26,7 @@
         app:layout_constraintVertical_bias="0.91" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_view"
         android:layout_width="355dp"
         android:layout_height="345dp"
         app:layout_constraintBottom_toTopOf="@+id/load_button"

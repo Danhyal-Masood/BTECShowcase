@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(resultCode==RESULT_OK){
                     try {
-                        ImageView v1=findViewById(R.id.imageView);
+                        ImageView v1=findViewById(R.id.image_view);
                         Uri ImageUri = data.getData();
                         Bitmap bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(), ImageUri);
                         NetworkTask nt=new NetworkTask();

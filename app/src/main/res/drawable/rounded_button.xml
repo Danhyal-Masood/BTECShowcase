@@ -1,15 +1,48 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <selector xmlns:android = "http://schemas.android.com/apk/res/android">
-    <item android:left="3dp" android:top="5dp" android:state_pressed = "false">
-        <shape android:shape = "rectangle">
-            <solid android:color = "#50f0f0"/>
-            <corners android:radius = "30dp"/>
-        </shape>
+    <item android:state_pressed = "false">
+        <layer-list>
+            <item>
+                <shape>
+
+                    <solid android:color="#2575b4"/>
+
+                    <corners android:radius="30dp"/>
+                    <padding
+                        android:bottom="10dp"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape = "rectangle">
+                <solid android:color = "#3498db"/>
+                <corners android:radius = "30dp"/>
+            </shape>
+            </item>
+
+
+
+        </layer-list>
     </item>
     <item android:state_pressed = "true">
-        <shape android:shape = "rectangle">
-            <solid android:color = "#109090"/>
-            <corners android:radius = "30dp"/>
-        </shape>
+        <layer-list>
+            <item>
+                <shape>
+
+                    <solid android:color="#3498db"/>
+
+                    <corners android:radius="30dp"/>
+                    <padding
+                        android:bottom="10dp"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape = "rectangle">
+                <solid android:color = "#3498db"/>
+                <corners android:radius = "30dp"/>
+
+                </shape>
+            </item>
+        </layer-list>
+
     </item>
 </selector>
