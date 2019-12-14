@@ -52,11 +52,15 @@ import java.util.Iterator;
 import java.util.List;
 
 
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSink;
+import okio.GzipSink;
+import okio.Okio;
 import one.util.streamex.DoubleStreamEx;
 import one.util.streamex.StreamEx;
 
@@ -214,7 +218,8 @@ public class MainActivity extends AppCompatActivity {
         String server_url = "http://92.233.63.88:8501/v1/models/resnet_openimages:predict";
 
         final long startTime = System.currentTimeMillis();
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new GzipRequestInterceptor()).build();
         final MediaType JSON= MediaType.get("application/json; charset=utf-8");
         RequestBody requestBody=RequestBody.create(json.toJSONString(),JSON);
         Request request=new Request.Builder().url(server_url).post(requestBody).build();
@@ -253,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                 int right=(int)(detection_boxes.get(j).get(3)*img.cols());
                 org.bytedeco.opencv.global.opencv_imgproc.rectangle(img,new Point(left,top),new Point(right,bottom), Scalar.GREEN);
 //                org.bytedeco.opencv.global.opencv_imgproc.putText(img, cocolabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,4,Scalar.RED);
-                org.bytedeco.opencv.global.opencv_imgproc.putText(img, OpenImageLabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,4,Scalar.RED);
+                org.bytedeco.opencv.global.opencv_imgproc.putText(img, OpenImageLabels.get(detection_classes.get(j).intValue()-1),new Point(left,top),1,4,Scalar.GREEN);
 
 
             }
@@ -276,4 +281,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+//https://github.com/square/okhttp/issues/350
+    static class GzipRequestInterceptor implements Interceptor {
+        @Override public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            if (originalRequest.body() == null || originalRequest.header("Content-Encoding") != null) {
+                return chain.proceed(originalRequest);
+            }
+
+            Request compressedRequest = originalRequest.newBuilder()
+                    .header("Content-Encoding", "gzip")
+                    .method(originalRequest.method(), gzip(originalRequest.body()))
+                    .build();
+            return chain.proceed(compressedRequest);
+        }
+
+        private RequestBody gzip(final RequestBody body) {
+            return new RequestBody() {
+                @Override public MediaType contentType() {
+                    return body.contentType();
+                }
+
+                @Override public long contentLength() {
+                    return -1; // We don't know the compressed length in advance!
+                }
+
+                @Override public void writeTo(BufferedSink sink) throws IOException {
+                    BufferedSink gzipSink = Okio.buffer(new GzipSink(sink));
+                    body.writeTo(gzipSink);
+                    gzipSink.close();
+                }
+            };
+        }
+    }
 }
