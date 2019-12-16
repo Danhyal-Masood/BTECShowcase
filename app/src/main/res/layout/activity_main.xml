@@ -8,32 +8,30 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/load_button"
-        style="@android:style/Widget.Button"
-        android:layout_width="213dp"
-        android:layout_height="66dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/questrial"
-        android:text="Load Image"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+            android:id="@+id/load_button"
+            style="@android:style/Widget.Button"
+            android:layout_width="213dp"
+            android:layout_height="66dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/questrial"
+            android:text="Load Image"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.933" />
 
     <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="355dp"
-        android:layout_height="345dp"
-        app:layout_constraintBottom_toTopOf="@+id/load_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@android:color/holo_blue_dark" />
+            android:id="@+id/imageView"
+            android:layout_width="411dp"
+            android:layout_height="620dp"
+            app:layout_constraintBottom_toTopOf="@+id/load_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498"
+            app:srcCompat="@android:color/holo_blue_dark" />
 </androidx.constraintlayout.widget.ConstraintLayout>
