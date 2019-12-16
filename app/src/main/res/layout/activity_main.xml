@@ -8,20 +8,21 @@
     tools:context=".MainActivity">
 
     <Button
-            android:id="@+id/load_button"
-            style="@android:style/Widget.Button"
-            android:layout_width="213dp"
-            android:layout_height="66dp"
-            android:background="@drawable/rounded_button"
-            android:fontFamily="@font/questrial"
-            android:text="Load Image"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.933" />
+        android:id="@+id/load_button"
+        style="@android:style/Widget.Button"
+        android:layout_width="213dp"
+        android:layout_height="66dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/questrial"
+        android:text="Load Image"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933" />
 
     <ImageView
             android:id="@+id/imageView"

@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                         OpenImageLabels=getcsvdata("class-descriptions-boxable.csv");
                         cocolabels=gettxtdata("coco.txt");
                         Bitmap bmp=nt.execute(bitmap).get();
-                        bitmap.recycle();
                         v1.setImageBitmap(bmp);
 
 
@@ -268,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bmp2=convert1.convert(converterToMat.convert(img));
         System.out.print((endTime-startTime)/1000);
         // recycle bitmap to regain some wam
-        bitmap.recycle();
+
 
         return bmp2;
         }catch (ParseException e){}
