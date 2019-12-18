@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.util.TimeUnit;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -218,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
         final long startTime = System.currentTimeMillis();
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new GzipRequestInterceptor()).build();
+                .addInterceptor(new GzipRequestInterceptor()).callTimeout(Duration.ofMinutes(4)).build();
         final MediaType JSON= MediaType.get("application/json; charset=utf-8");
         RequestBody requestBody=RequestBody.create(json.toJSONString(),JSON);
         Request request=new Request.Builder().url(server_url).post(requestBody).build();
